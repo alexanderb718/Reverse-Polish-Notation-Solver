@@ -5,7 +5,7 @@ OBJ=obj
 SRCS=$(wildcard $(SRC)/*.cpp)
 OBJS=$(patsubst $(SRC)/%.cpp, $(OBJ)/%.o, $(SRCS))
 
-all: $(OBJ) prog
+all: $(OBJ) prog infix
 
 $(OBJ):
 	mkdir $(OBJ)
@@ -19,5 +19,8 @@ $(OBJ)/%.o: $(SRC)/%.cpp
 prog: $(OBJ)/stack.o $(OBJ)/parser.o $(SRC)/main.cpp
 	$(CC) $(CFLAGS) -o $@ $^
 
+infix: $(OBJ)/stack.o $(OBJ)/parser.o $(SRC)/infix.cpp
+	$(CC) $(CFLAGS) -o $@ $^
+
 clean:
-	rm -f $(OBJS) prog
+	rm -f $(OBJS) prog infix
